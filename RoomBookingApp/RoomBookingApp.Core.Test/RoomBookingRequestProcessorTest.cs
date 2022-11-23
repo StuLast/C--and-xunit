@@ -1,5 +1,6 @@
 ﻿using RoomBookingApp.Core.Models;
 using RoomBookingApp.Core.Processors;
+using Shouldly;
 
 namespace RoomBookingApp.Core
 {
@@ -23,17 +24,29 @@ namespace RoomBookingApp.Core
 
 			//Assertion
 			//With default xUnit Assert
-			Assert.NotNull(result);
-			Assert.Equal(result.FullName, request.FullName);
-			Assert.Equal(result.Email, request.Email);
-			Assert.Equal(result.Date, request.Date);
+			//Assert.NotNull(result);
+			//Assert.Equal(result.FullName, request.FullName);
+			//Assert.Equal(result.Email, request.Email);
+			//Assert.Equal(result.Date, request.Date);
 
 
 			//With Shouldly
-			//result.ShouldNotBeNull();
-			//result.FullName.ShouldBe(request.FullName);
-			//result.Email.ShouldBe(request.Email);
-			//result.Date.ShouldBe(request.Date);
+			result.ShouldNotBeNull();
+			result.FullName.ShouldBe(request.FullName);
+			result.Email.ShouldBe(request.Email);
+			result.Date.ShouldBe(request.Date);
+		}
+
+		[Fact]
+		public void Should_Throw_Exception_For_Null_Request()
+		{
+
+			var processor = new RoomBookingRequestProcessor();
+			//var exception = Assert.Throws<ArgumentNullException>(() => processor.Bookroom(null));
+
+			var exception = Should.Throw<ArgumentNullException>(() => processor.Bookroom(null));
+			exception.ParamName.ShouldBe("bookingRequest");
+
 		}
 	}
 }
