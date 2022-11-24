@@ -1,22 +1,22 @@
-﻿using System.Linq;
-using RoomBookingApp.Core.DataServices;
-using RoomBookingApp.Core.Domain;
+﻿using RoomBookingApp.Core.DataServices;
 using RoomBookingApp.Core.Models;
+using RoomBookingApp.Domain;
+using RoomBookingApp.Domain.BaseModels;
 
 namespace RoomBookingApp.Core.Processors
 {
     public class RoomBookingRequestProcessor
     {
-		private readonly IRoomBookingService _roomBookingService;
+        private readonly IRoomBookingService _roomBookingService;
 
-		public RoomBookingRequestProcessor(IRoomBookingService roomBookingService)
+        public RoomBookingRequestProcessor(IRoomBookingService roomBookingService)
         {
-			_roomBookingService = roomBookingService;
-		}
+            _roomBookingService = roomBookingService;
+        }
 
         public RoomBookingResult Bookroom(RoomBookingRequest bookingRequest)
         {
-            if(bookingRequest == null)
+            if (bookingRequest == null)
             {
                 throw new ArgumentNullException(nameof(bookingRequest));
             }
@@ -24,14 +24,15 @@ namespace RoomBookingApp.Core.Processors
             var availableRooms = _roomBookingService.GetAvailableRooms(bookingRequest.Date);
             var result = CreateRoomBookingObject<RoomBookingResult>(bookingRequest);
 
-			if (availableRooms.Any())
+            if (availableRooms.Any())
             {
                 var roomBooking = CreateRoomBookingObject<RoomBooking>(bookingRequest);
                 roomBooking.RoomId = availableRooms.First().Id;
-				_roomBookingService.Save(roomBooking);
+                _roomBookingService.Save(roomBooking);
                 result.RoomBookingId = roomBooking.Id;
                 result.Flag = Enums.BookingResultFlag.Success;
-			} else
+            }
+            else
             {
                 result.Flag = Enums.BookingResultFlag.Failure;
             }
