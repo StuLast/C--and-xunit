@@ -1,10 +1,18 @@
 ﻿using RoomBookingApp.Core.DataServices;
 using RoomBookingApp.Domain;
+using RoomBookingApp.Persistence;
 
 namespace RoomBookingApp.Persistence.Repositories
 {
+
 	public class RoomBookingService : IRoomBookingService
 	{
+		private readonly RoomBookingAppDbContext _context;
+
+		public RoomBookingService(RoomBookingAppDbContext context)
+		{
+			_context = context;
+		}
 		public IEnumerable<Room> GetAvailableRooms(DateTime date)
 		{
 			throw new NotImplementedException();
