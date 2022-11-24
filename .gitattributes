@@ -1,0 +1,1 @@
+ib_logfile* filter=lfs diff=lfs merge=lfs -text
