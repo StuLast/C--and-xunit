@@ -5,3 +5,6 @@ global using System.Linq;
 global using Microsoft.Extensions.Logging;
 global using RoomBookingApp.API;
 global using RoomBookingApp.API.Controllers;
+global using RoomBookingApp.Core.Processors;
+global using RoomBookingApp.Core.Models;
+global using Microsoft.AspNetCore.Mvc;

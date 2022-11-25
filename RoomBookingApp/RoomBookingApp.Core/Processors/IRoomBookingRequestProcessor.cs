@@ -5,5 +5,6 @@ namespace RoomBookingApp.Core.Processors
     public interface IRoomBookingRequestProcessor
     {
         RoomBookingResult Bookroom(RoomBookingRequest bookingRequest);
+        void SaveBooking(RoomBookingRequest request);
     }
 }
