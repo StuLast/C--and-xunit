@@ -17,7 +17,7 @@ namespace RoomBookingApp.API.Tests
 			_request = new RoomBookingRequest();
 			_result = new RoomBookingResult();
 
-			_roomBookingProcessor.Setup(x => x.Bookroom(_request))
+			_roomBookingProcessor.Setup(x => x.BookRoom(_request))
 				.Returns(_result);
 		}
 

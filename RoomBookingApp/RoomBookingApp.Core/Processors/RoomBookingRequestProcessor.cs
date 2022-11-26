@@ -14,7 +14,7 @@ namespace RoomBookingApp.Core.Processors
             _roomBookingService = roomBookingService;
         }
 
-        public RoomBookingResult Bookroom(RoomBookingRequest bookingRequest)
+        public RoomBookingResult BookRoom(RoomBookingRequest bookingRequest)
         {
             if (bookingRequest == null)
             {
@@ -40,7 +40,15 @@ namespace RoomBookingApp.Core.Processors
             return result;
         }
 
-        private static TRoomBooking CreateRoomBookingObject<TRoomBooking>(RoomBookingRequest bookingRequest)
+		public void SaveBooking(RoomBookingRequest request)
+		{
+			throw new NotImplementedException();
+		}
+
+        // Helper Methods
+        //===============
+
+		private static TRoomBooking CreateRoomBookingObject<TRoomBooking>(RoomBookingRequest bookingRequest)
             where TRoomBooking : RoomBookingBase, new()
         {
             return new TRoomBooking
@@ -50,5 +58,7 @@ namespace RoomBookingApp.Core.Processors
                 Date = bookingRequest.Date
             };
         }
-    }
+
+
+	}
 }

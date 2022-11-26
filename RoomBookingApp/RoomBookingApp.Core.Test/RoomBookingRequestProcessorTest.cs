@@ -42,7 +42,7 @@ namespace RoomBookingApp.Core
 		{
 
 			//Action
-			RoomBookingResult result = _processor.Bookroom(_request);
+			RoomBookingResult result = _processor.BookRoom(_request);
 
 			//Assertion
 			//With default xUnit Assert
@@ -66,7 +66,7 @@ namespace RoomBookingApp.Core
 
 			//var exception = Assert.Throws<ArgumentNullException>(() => processor.Bookroom(null));
 
-			var exception = Should.Throw<ArgumentNullException>(() => _processor.Bookroom(null));
+			var exception = Should.Throw<ArgumentNullException>(() => _processor.BookRoom(null));
 			exception.ParamName.ShouldBe("bookingRequest");
 
 		}
@@ -80,7 +80,7 @@ namespace RoomBookingApp.Core
 					savedBooking = booking;
 				});
 
-			_processor.Bookroom(_request);
+			_processor.BookRoom(_request);
 
 			_roomBookingServiceMock.Verify(
 				q => q.Save(It.IsAny<RoomBooking>()), Times.Once);
@@ -99,7 +99,7 @@ namespace RoomBookingApp.Core
 		public void Should_Not_Save_Room_Booking_Request_If_None_Available()
 		{
 			_availableRooms.Clear();
-			_processor.Bookroom(_request);
+			_processor.BookRoom(_request);
 			_roomBookingServiceMock.Verify(
 				q => q.Save(It.IsAny<RoomBooking>()), Times.Never);
 		}
@@ -114,7 +114,7 @@ namespace RoomBookingApp.Core
 				_availableRooms.Clear();
 			}
 
-			var result = _processor.Bookroom(_request);
+			var result = _processor.BookRoom(_request);
 			bookingResultFlag.ShouldBe(result.Flag);
 			
 		}
@@ -136,7 +136,7 @@ namespace RoomBookingApp.Core
 				});
 			}
 
-			var result = _processor.Bookroom(_request);
+			var result = _processor.BookRoom(_request);
 			result.RoomBookingId.ShouldBe(roomBookingId);
 		}
 	}
